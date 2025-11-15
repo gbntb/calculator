@@ -32,7 +32,35 @@ function operate(operator, a, b) {
 }
 
 function pressedNumber(number) {
-    display.textContent += number;
+    if (operatorJustPressed) {
+            display.textContent = "";
+            operatorJustPressed = false;
+    }
+
+    if (operand1 === null && currentOperator === null) {
+        display.textContent += number;
+    } else if (operand1 !== null && currentOperator !== null) {
+        display.textContent += number;
+    }
+}
+
+function pressedOperator(operator) {
+    if (operand1 === null && display.textContent !== "" && currentOperator === null) {
+        operand1 = +display.textContent;
+        currentOperator = operator;
+        operatorJustPressed = true;
+    } else if (operand1 !== null && display.textContent === "" && currentOperator !== null) {
+        currentOperator = operator;
+    } else if (operand1 !== null && display.textContent !== "" && currentOperator !== null && !operatorJustPressed) {
+        operand1 = operate(currentOperator, operand1, +display.textContent);
+        currentOperator = operator;
+        display.textContent = `${operand1}`;
+        operatorJustPressed = true;
+    } else if (operand1 !== null && display.textContent !== "" && currentOperator !== null && operatorJustPressed) {
+        currentOperator = operator;
+
+    }
+
 }
 
 function dispatchPressedButton(button) {
@@ -49,6 +77,12 @@ function dispatchPressedButton(button) {
         case "0":
             pressedNumber(button);
             break;
+        case "+":
+        case "-":
+        case "*":
+        case "/":
+            pressedOperator(button);
+            break;
     }
 }
 
@@ -59,4 +93,13 @@ function setupButtons() {
     });
 }
 
+
 let display = document.querySelector("#display");
+
+let operand1 = null;
+let operand2 = null;
+
+let currentOperator = null;
+let operatorJustPressed = false;
+
+setupButtons();
