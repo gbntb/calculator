@@ -30,3 +30,33 @@ function operate(operator, a, b) {
             return divide(a, b);
     }
 }
+
+function pressedNumber(number) {
+    display.textContent += number;
+}
+
+function dispatchPressedButton(button) {
+    switch (button) {
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+        case "5":
+        case "6":
+        case "7":
+        case "8":
+        case "9":
+        case "0":
+            pressedNumber(button);
+            break;
+    }
+}
+
+function setupButtons() {
+    let buttons = document.querySelector("#buttons");
+    buttons.addEventListener("click", (e) => {
+        dispatchPressedButton(e.target.textContent);
+    });
+}
+
+let display = document.querySelector("#display");
