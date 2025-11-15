@@ -3,3 +3,59 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    background-color: bisque;
+    color: cornflowerblue;
+    font-family: Roboto, sans-serif;
+    min-height: 100vh;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 36px;
+
+}
+
+h1 {
+    font-size: 108px;
+    font-weight: 700;
+}
+
+#container {
+    height: 525px;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+}
+
+#display {
+    border: 1px cornflowerblue solid;
+    border-radius: 15px;
+    background-color: beige;
+    font-size: 84px;
+    height: 125px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#buttons {
+    height: 400px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    align-content: stretch;
+}
+
+button {
+    background-color: cornflowerblue;
+    color: bisque;
+    border: 0;
+    font-size: 64px;
+    height: auto;
+    width: 25%;
+}
