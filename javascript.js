@@ -19,27 +19,20 @@ function divide(a, b) {
 // operate() applies the correct operation as dictated by the operator.
 
 function operate(operator, a, b) {
-    let result;
-
     if (operator === "/" && b === 0) {
         fatalError();
     }
     
     switch (operator) {
         case "+":
-            result = add(a, b);
-            break;
+            return add(a, b);
         case "-":
-            result = subtract(a, b);
-            break;
+            return subtract(a, b);
         case "*":
-            result = multiply(a, b);
-            break;
+            return multiply(a, b);
         case "/":
-            result = divide(a, b);
+            return divide(a, b);
     }
-
-    return result;
 }
 
 function roundFloats(number) {
