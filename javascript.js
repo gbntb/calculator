@@ -19,16 +19,27 @@ function divide(a, b) {
 // operate() applies the correct operation as dictated by the operator.
 
 function operate(operator, a, b) {
+    let result;
+
+    if (operator === "/" && b === 0) {
+        fatalError();
+    }
+    
     switch (operator) {
         case "+":
-            return add(a, b);
+            result = add(a, b);
+            break;
         case "-":
-            return subtract(a, b);
+            result = subtract(a, b);
+            break;
         case "*":
-            return multiply(a, b);
+            result = multiply(a, b);
+            break;
         case "/":
-            return divide(a, b);
+            result = divide(a, b);
     }
+
+    return result;
 }
 
 function roundFloats(number) {
@@ -64,6 +75,10 @@ function pressedOperator(operator) {
     } else if (operand1 !== null && display.textContent === "" && currentOperator !== null) {
         currentOperator = operator;
     } else if (operand1 !== null && display.textContent !== "" && currentOperator !== null && !operatorJustPressed) {
+        if (currentOperator === "/" && +display.textContent === 0) {
+            fatalError();
+            return;
+        }
         operand1 = operate(currentOperator, operand1, +display.textContent);
         operand1 = roundFloats(operand1);
         currentOperator = operator;
@@ -83,6 +98,10 @@ function pressedEquals() {
         //operatorJustPressed = false;
         operand1 = +display.textContent;
     } else if (operand1 !== null && display.textContent !== "" && currentOperator !== null && !operatorJustPressed) {
+        if (currentOperator === "/" && +display.textContent === 0) {
+            fatalError();
+            return;
+        }
         operand1 = operate(currentOperator, operand1, +display.textContent);
         operand1 = roundFloats(operand1);
         display.textContent = `${operand1}`;
@@ -99,6 +118,15 @@ function clear() {
     currentOperator = null;
     operatorJustPressed = false;
     display.textContent = "";
+}
+
+function fatalError() {
+    display.textContent = "!**ERROR**!";
+    buttons = document.querySelectorAll("#buttons button");
+    buttons.forEach((button) => {
+        button.disabled = true;
+        button.style.opacity = "50%";
+    });
 }
 
 function dispatchPressedButton(button) {
