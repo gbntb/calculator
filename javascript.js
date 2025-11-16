@@ -41,8 +41,13 @@ function roundFloats(number) {
 
 function pressedNumber(number) {
     if (operatorJustPressed) {
-            display.textContent = "";
-            operatorJustPressed = false;
+        display.textContent = "";
+        operatorJustPressed = false;
+    } else if (equalsJustPressed && currentOperator === null && operand1 !== null) {
+        display.textContent = number;
+        operand1 = null;
+        equalsJustPressed = false;
+        return;
     }
 
     if (operand1 === null && currentOperator === null) {
