@@ -43,18 +43,17 @@ function pressedNumber(number) {
     if (operatorJustPressed) {
         display.textContent = "";
         operatorJustPressed = false;
-    } else if (equalsJustPressed && currentOperator === null && operand1 !== null) {
-        display.textContent = number;
-        operand1 = null;
-        equalsJustPressed = false;
-        return;
     }
-
+    
     if (operand1 === null && currentOperator === null) {
         display.textContent += number;
     } else if (operand1 !== null && currentOperator !== null) {
         display.textContent += number;
-    }
+    } else if (equalsJustPressed && currentOperator === null && operand1 !== null) {
+        display.textContent = number;
+        operand1 = null;
+        equalsJustPressed = false;
+    } 
 }
 
 function pressedOperator(operator) {
@@ -89,6 +88,9 @@ function pressedEquals() {
         display.textContent = `${operand1}`;
         currentOperator = null;
         equalsJustPressed = true;
+    } else if (operand1 !== null, operatorJustPressed) {
+        currentOperator = null;
+        operatorJustPressed = false;
     }
 }
 
