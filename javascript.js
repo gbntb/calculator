@@ -58,9 +58,14 @@ function pressedOperator(operator) {
         operatorJustPressed = true;
     } else if (operand1 !== null && display.textContent !== "" && currentOperator !== null && operatorJustPressed) {
         currentOperator = operator;
-
     }
+}
 
+function clear() {
+    operand1 = null;
+    currentOperator = null;
+    operatorJustPressed = false;
+    display.textContent = "";
 }
 
 function dispatchPressedButton(button) {
@@ -83,6 +88,11 @@ function dispatchPressedButton(button) {
         case "/":
             pressedOperator(button);
             break;
+        case "=":
+            console.log("Pressed =");
+            break;
+        case "C":
+            clear();
     }
 }
 
@@ -97,7 +107,6 @@ function setupButtons() {
 let display = document.querySelector("#display");
 
 let operand1 = null;
-let operand2 = null;
 
 let currentOperator = null;
 let operatorJustPressed = false;
