@@ -31,6 +31,14 @@ function operate(operator, a, b) {
     }
 }
 
+function roundFloats(number) {
+    if (!Number.isInteger(number) && !isNaN(number)) {
+        return +number.toFixed(1);
+    }
+
+    return number;
+}
+
 function pressedNumber(number) {
     if (operatorJustPressed) {
             display.textContent = "";
@@ -53,6 +61,7 @@ function pressedOperator(operator) {
         currentOperator = operator;
     } else if (operand1 !== null && display.textContent !== "" && currentOperator !== null && !operatorJustPressed) {
         operand1 = operate(currentOperator, operand1, +display.textContent);
+        operand1 = roundFloats(operand1);
         currentOperator = operator;
         display.textContent = `${operand1}`;
         operatorJustPressed = true;
@@ -71,6 +80,7 @@ function pressedEquals() {
         operand1 = +display.textContent;
     } else if (operand1 !== null && display.textContent !== "" && currentOperator !== null && !operatorJustPressed) {
         operand1 = operate(currentOperator, operand1, +display.textContent);
+        operand1 = roundFloats(operand1);
         display.textContent = `${operand1}`;
         currentOperator = null;
         equalsJustPressed = true;
