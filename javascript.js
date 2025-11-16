@@ -58,6 +58,22 @@ function pressedOperator(operator) {
         operatorJustPressed = true;
     } else if (operand1 !== null && display.textContent !== "" && currentOperator !== null && operatorJustPressed) {
         currentOperator = operator;
+    } else if (equalsJustPressed) {
+        currentOperator = operator;
+        operatorJustPressed = true;
+    }
+}
+
+function pressedEquals() {
+    if (operand1 === null && display.textContent !== "" && operatorJustPressed) {
+        currentOperator = null;
+        //operatorJustPressed = false;
+        operand1 = +display.textContent;
+    } else if (operand1 !== null && display.textContent !== "" && currentOperator !== null && !operatorJustPressed) {
+        operand1 = operate(currentOperator, operand1, +display.textContent);
+        display.textContent = `${operand1}`;
+        currentOperator = null;
+        equalsJustPressed = true;
     }
 }
 
@@ -89,7 +105,7 @@ function dispatchPressedButton(button) {
             pressedOperator(button);
             break;
         case "=":
-            console.log("Pressed =");
+            pressedEquals();
             break;
         case "C":
             clear();
@@ -103,12 +119,13 @@ function setupButtons() {
     });
 }
 
-
 let display = document.querySelector("#display");
 
 let operand1 = null;
 
 let currentOperator = null;
 let operatorJustPressed = false;
+
+let equalsJustPressed = false;
 
 setupButtons();
